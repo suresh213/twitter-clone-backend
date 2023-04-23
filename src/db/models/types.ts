@@ -21,6 +21,7 @@ interface UserInstance {
   avatar?: string;
   email: string;
   password: string;
+  token?: string;
 }
 
 interface TweetInstance {

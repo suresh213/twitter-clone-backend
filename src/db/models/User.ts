@@ -7,6 +7,7 @@ class User extends Model<UserInstance> {
   public avatar?: string;
   public email!: string;
   public password?: string;
+  public token?: string;
 
   public static associate() {
     // define association here
@@ -65,6 +66,9 @@ export default function (sequelize: Sequelize): typeof User {
           notNull: true,
           notEmpty: true,
         },
+      },
+      token: {
+        type: DataTypes.TEXT,
       },
     },
     {
