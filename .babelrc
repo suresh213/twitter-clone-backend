@@ -1,5 +1,15 @@
 {
-  "presets": ["@babel/preset-env"],
+  "presets": [
+    "@babel/preset-typescript",
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "node": "current"
+        }
+      }
+    ]
+  ],
   "plugins": [
     "@babel/transform-runtime",
     "@babel/plugin-syntax-optional-chaining"
