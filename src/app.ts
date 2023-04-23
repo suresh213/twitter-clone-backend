@@ -5,6 +5,9 @@ import helmet from 'helmet';
 
 import { configDayJS } from './config/dayjs.config';
 
+import authRoutes from './routes/authRoutes';
+import userRoutes from './routes/userRoutes';
+
 configDayJS();
 
 const app = express();
@@ -15,6 +18,8 @@ app.use(bodyParser.json({ limit: '100mb' }));
 app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
 
 // Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/user', userRoutes);
 
 // when a random route is inputed
 app.get('*', (req, res) => {
