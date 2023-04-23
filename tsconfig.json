@@ -1,12 +1,17 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    // "target": "es6",
     "module": "commonjs",
+    "target": "esnext",
     "strict": true,
     "esModuleInterop": true,
     "outDir": "dist",
     "sourceMap": true
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "src/**/*.ts",
+    "src/db/config/config.ts",
+    "src/db/models/index.ts"
+  ],
+  "exclude": ["node_modules", "src/db/migrations"]
 }
