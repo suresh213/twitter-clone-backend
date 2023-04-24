@@ -1,4 +1,4 @@
-require('@babel/register');
+require('ts-node/register');
 /* eslint-disable no-console */
 import cluster, { Worker } from 'cluster';
 import os from 'os';
@@ -26,9 +26,9 @@ const setupWorkerProcesses = (): void => {
 };
 
 const setUpExpress = (): void => {
-  const port: number = Number(process.env.APP_PORT) || 8000;
+  const port: number = Number(process.env.APP_PORT) || 8002;
 
-  const server = app.listen(port, () => {
+  app.listen(port, () => {
     console.log(
       `Server running on port ${port} 🚀: time : ${dayjs()
         .tz('Asia/Kolkata')
@@ -44,3 +44,9 @@ const setupServer = (isClusterRequired: boolean): void => {
     setUpExpress();
   }
 };
+
+if (process.env.NODE_ENV === 'production') {
+  setupServer(true);
+} else {
+  setupServer(false);
+}
