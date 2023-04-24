@@ -4,8 +4,8 @@
   "description": "Backend server for the Twitter",
   "main": "cluster.js",
   "scripts": {
-    "dev": "nodemon --exec npx babel-node --extensions .js,.ts -- ./src/server.ts",
-    "makeMigrations": "babel-node .\\node_modules\\sequelize-auto-migrations\\bin\\makemigration.js",
+    "dev": "ts-node ./src/server.ts",
+    "makeMigrations": "ts-node .\\node_modules\\sequelize-auto-migrations\\bin\\makemigration.js",
     "migrate": "sequelize-cli db:migrate",
     "pretty": "prettier --write .",
     "prepare": "husky install"
@@ -13,7 +13,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
   "dependencies": {
     "@babel/preset-typescript": "^7.21.4",
     "axios": "^0.27.2",
@@ -68,6 +67,8 @@
     "eslint-plugin-jsdoc": "^39.2.9",
     "husky": "^8.0.1",
     "pretty-quick": "^3.1.3",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.5.0",
     "typescript": "^5.0.4"
   }
 }
