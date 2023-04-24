@@ -1,5 +1,5 @@
 import { db } from '../db/models';
-import { TweetInstance } from '../db/models/types';
+import { TweetInstance } from '../db/types';
 
 const { Tweet, User } = db;
 

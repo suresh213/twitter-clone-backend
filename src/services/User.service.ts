@@ -1,5 +1,5 @@
 import { db } from '../db/models';
-import { UserInstance } from '../db/models/types';
+import { UserInstance } from '../db/types';
 
 const { User } = db;
 
