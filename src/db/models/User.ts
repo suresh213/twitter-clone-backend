@@ -1,26 +1,26 @@
-import { Model, DataTypes, Sequelize } from 'sequelize';
-import { UserInstance } from './types';
+import { Model } from 'sequelize';
+import { UserInstance } from '../types';
 
-class User extends Model<UserInstance> {
-  public name?: string;
-  public username?: string;
-  public avatar?: string;
-  public email!: string;
-  public password?: string;
-  public token?: string;
+module.exports = (sequelize: any, DataTypes: any) => {
+  class User extends Model<UserInstance> {
+    public name?: string;
+    public username?: string;
+    public avatar?: string;
+    public email!: string;
+    public password?: string;
+    public token?: string;
 
-  public static associate() {
-    // define association here
+    public static associate() {
+      // define association here
+    }
+
+    public toJSON(): UserInstance {
+      const values = { ...this.get({ plain: true }) };
+
+      return values as UserInstance;
+    }
   }
 
-  public toJSON(): UserInstance {
-    const values = { ...this.get({ plain: true }) };
-
-    return values as UserInstance;
-  }
-}
-
-export default function (sequelize: Sequelize): typeof User {
   User.init(
     {
       id: {
@@ -78,4 +78,4 @@ export default function (sequelize: Sequelize): typeof User {
   );
 
   return User;
-}
+};

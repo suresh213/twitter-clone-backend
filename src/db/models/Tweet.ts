@@ -1,22 +1,22 @@
-import { Model, DataTypes, Sequelize } from 'sequelize';
-import { TweetInstance } from './types';
+import { Model } from 'sequelize';
+import { TweetInstance } from '../types';
 
-class Tweet extends Model<TweetInstance> {
-  public authorId!: string;
-  public content?: string;
+module.exports = (sequelize: any, DataTypes: any) => {
+  class Tweet extends Model<TweetInstance> {
+    public authorId!: string;
+    public content?: string;
 
-  public static associate() {
-    // define association here
+    public static associate() {
+      // define association here
+    }
+
+    public toJSON(): TweetInstance {
+      const values = { ...this.get({ plain: true }) };
+
+      return values as TweetInstance;
+    }
   }
 
-  public toJSON(): TweetInstance {
-    const values = { ...this.get({ plain: true }) };
-
-    return values as TweetInstance;
-  }
-}
-
-export default function (sequelize: Sequelize): typeof Tweet {
   Tweet.init(
     {
       authorId: {
@@ -39,4 +39,4 @@ export default function (sequelize: Sequelize): typeof Tweet {
   );
 
   return Tweet;
-}
+};
