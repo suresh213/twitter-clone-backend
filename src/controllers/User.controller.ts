@@ -9,6 +9,7 @@ import RequestParamsHandler from '../handlers/RequestParamsHandler';
 import ResponseHandler from '../handlers/ResponseHandler';
 import UserService from '../services/User.service';
 import { generateUsername } from '../utils/utils';
+import { OAuth2Client } from 'google-auth-library';
 
 const responseHandler = new ResponseHandler();
 const requestParamsHandler = new RequestParamsHandler();
@@ -59,6 +60,7 @@ class UserController {
         username: generateUsername(name),
         password: hash,
         avatar: avatars[Math.floor(Math.random() * 3) + 1],
+        provider: 'internal',
       };
       const createdUser = await UserService.createOne(userData, transaction);
 
@@ -177,6 +179,63 @@ class UserController {
       return responseHandler.setError(
         StatusCodes.INTERNAL_SERVER_ERROR,
         'Error in getting user details',
+        res
+      );
+    }
+  }
+
+  static async authenticateWithGoogle(req: Request, res: Response) {
+    const { credential } = req.body;
+    const clientID = process.env.GOOGLE_CLIENT_ID;
+    const clientSecret = process.env.GOOGLE_CLIENT_SECERT;
+
+    const OAuthClient = new OAuth2Client(clientID, clientSecret);
+    const client = await OAuthClient.verifyIdToken({ idToken: credential });
+    const userPayload = client.getPayload();
+
+    try {
+      const user = await UserService.getOne({ email: userPayload.email });
+      if (user) {
+        const token = jwt.sign({ user: user }, process.env.SECRET_KEY || '', {
+          expiresIn: JWT_EXPIRY_TIME,
+        });
+        return responseHandler.setSuccess(
+          StatusCodes.OK,
+          'Google Login success',
+          { ...user, token },
+          res
+        );
+      }
+
+      const userData = {
+        name: userPayload.name,
+        username: generateUsername(userPayload.name),
+        email: userPayload.email,
+        provider: 'google',
+        avatar: userPayload.picture,
+      };
+
+      const createdUser = await UserService.createOne(userData);
+
+      const token = jwt.sign(
+        { user: createdUser },
+        process.env.SECRET_KEY || '',
+        {
+          expiresIn: JWT_EXPIRY_TIME,
+        }
+      );
+
+      return responseHandler.setSuccess(
+        StatusCodes.OK,
+        'Google Login success',
+        { ...createdUser, token },
+        res
+      );
+    } catch (error) {
+      console.log(error);
+      return responseHandler.setError(
+        StatusCodes.INTERNAL_SERVER_ERROR,
+        'Error in google login',
         res
       );
     }

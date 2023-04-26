@@ -50,14 +50,9 @@ module.exports = (sequelize: any, DataTypes: any) => {
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          notNull: true,
-          notEmpty: true,
-        },
       },
-      token: {
-        type: DataTypes.TEXT,
+      provider: {
+        type: DataTypes.STRING,
       },
     },
     {
