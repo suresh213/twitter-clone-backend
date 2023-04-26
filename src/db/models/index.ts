@@ -41,18 +41,18 @@ db.sequelize = sequelize;
 // Associations will be defined here
 
 db.User.hasMany(db.Tweet, {
+  as: 'author',
   foreignKey: {
     allowNull: false,
     name: 'authorId',
-    as: 'author',
   },
 });
 
 db.Tweet.belongsTo(db.User, {
+  as: 'author',
   foreignKey: {
     allowNull: false,
     name: 'authorId',
-    as: 'author',
   },
 });
 
