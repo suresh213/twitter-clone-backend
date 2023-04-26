@@ -12,7 +12,7 @@ var Sequelize = require('sequelize');
 var info = {
     "revision": 2,
     "name": "noname",
-    "created": "2023-04-24T07:12:15.409Z",
+    "created": "2023-04-25T11:26:41.451Z",
     "comment": ""
 };
 
@@ -26,8 +26,7 @@ var migrationCommands = function(transaction) {
                     "type": Sequelize.INTEGER,
                     "field": "id",
                     "autoIncrement": true,
-                    "primaryKey": true,
-                    "allowNull": false
+                    "primaryKey": true
                 },
                 "authorId": {
                     "type": Sequelize.INTEGER,
@@ -37,7 +36,6 @@ var migrationCommands = function(transaction) {
                         "model": "Users",
                         "key": "id"
                     },
-                    "as": "author",
                     "name": "authorId",
                     "field": "authorId",
                     "allowNull": false

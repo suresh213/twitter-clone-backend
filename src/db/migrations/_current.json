@@ -4,7 +4,6 @@
             "tableName": "Tweets",
             "schema": {
                 "id": {
-                    "allowNull": false,
                     "primaryKey": true,
                     "autoIncrement": true,
                     "field": "id",
@@ -14,7 +13,6 @@
                     "allowNull": false,
                     "field": "authorId",
                     "name": "authorId",
-                    "as": "author",
                     "references": {
                         "model": "Users",
                         "key": "id"
@@ -45,8 +43,8 @@
             "tableName": "Users",
             "schema": {
                 "id": {
-                    "allowNull": false,
                     "primaryKey": true,
+                    "autoIncrement": true,
                     "field": "id",
                     "seqType": "Sequelize.INTEGER"
                 },

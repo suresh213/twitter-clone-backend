@@ -4,8 +4,8 @@
             "tableName": "Users",
             "schema": {
                 "id": {
-                    "allowNull": false,
                     "primaryKey": true,
+                    "autoIncrement": true,
                     "field": "id",
                     "seqType": "Sequelize.INTEGER"
                 },
