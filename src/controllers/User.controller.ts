@@ -3,12 +3,12 @@ import bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import jwt from 'jsonwebtoken';
-import { JWT_EXPIRY_TIME } from '../constants/constants';
+import { JWT_EXPIRY_TIME, avatars } from '../constants/constants';
+import { sequelize } from '../db/models';
 import RequestParamsHandler from '../handlers/RequestParamsHandler';
 import ResponseHandler from '../handlers/ResponseHandler';
-
-import { sequelize } from '../db/models';
 import UserService from '../services/User.service';
+import { generateUsername } from '../utils/utils';
 
 const responseHandler = new ResponseHandler();
 const requestParamsHandler = new RequestParamsHandler();
@@ -22,10 +22,10 @@ class UserController {
   static async register(req: Request, res: Response) {
     const transaction = await sequelize.transaction();
     try {
-      const { name, email, password, mobileNumber } = req.body;
+      const { name, email, password } = req.body;
 
       const validationResult = requestParamsHandler.checkParams(
-        ['name', 'email', 'password', 'mobileNumber'],
+        ['name', 'email', 'password'],
         req.body
       );
 
@@ -54,9 +54,11 @@ class UserController {
       }
 
       const userData = {
-        name,
+        name: name?.trim(),
         email,
+        username: generateUsername(name),
         password: hash,
+        avatar: avatars[Math.floor(Math.random() * 3) + 1],
       };
       const createdUser = await UserService.createOne(userData, transaction);
 
