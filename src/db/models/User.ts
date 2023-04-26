@@ -3,13 +3,6 @@ import { UserInstance } from '../types';
 
 module.exports = (sequelize: any, DataTypes: any) => {
   class User extends Model<UserInstance> {
-    public name?: string;
-    public username?: string;
-    public avatar?: string;
-    public email!: string;
-    public password?: string;
-    public token?: string;
-
     public static associate() {
       // define association here
     }
@@ -25,12 +18,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
     {
       id: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-        validate: {
-          notNull: true,
-          notEmpty: true,
-        },
         primaryKey: true,
+        autoIncrement: true,
       },
       name: {
         type: DataTypes.STRING,
