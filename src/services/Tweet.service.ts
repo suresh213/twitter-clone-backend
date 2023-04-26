@@ -23,6 +23,7 @@ class TweetService {
             attributes: ['name', 'username', 'avatar'],
           },
         ],
+        order: [['createdAt', 'ASC']],
       });
     } catch (error) {
       throw error;

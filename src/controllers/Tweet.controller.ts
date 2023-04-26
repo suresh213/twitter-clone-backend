@@ -19,7 +19,12 @@ class TweetController {
    * @return {JSON} - JSON Response.
    */
   static async getTweets(req: Request, res: Response) {
-    const Tweets = await TweetService.getAll();
+    const { user }: any = req;
+    const { my } = req.query;
+
+    const condtion = my ? { authorId: user.id } : {};
+
+    const Tweets = await TweetService.getAll(condtion);
 
     return responseHandler.setSuccess(
       StatusCodes.OK,
