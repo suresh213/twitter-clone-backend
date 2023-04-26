@@ -36,7 +36,17 @@ class TweetService {
    */
   static async addOne(newTweet: TweetInstance): Promise<TweetInstance> {
     try {
-      return await Tweet.create(newTweet);
+      const tweet = await Tweet.create(newTweet);
+      return await Tweet.findOne({
+        where: { id: tweet.dataValues.id },
+        include: [
+          {
+            model: User,
+            as: 'author',
+            attributes: ['name', 'username', 'avatar'],
+          },
+        ],
+      });
     } catch (error) {
       throw error;
     }
