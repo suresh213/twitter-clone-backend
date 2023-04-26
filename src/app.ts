@@ -1,6 +1,6 @@
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import express from 'express';
+import express, { Request, Response } from 'express';
 import helmet from 'helmet';
 
 import { configDayJS } from './config/dayjs.config';
@@ -22,7 +22,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
 
 // when a random route is inputed
-app.get('*', (req, res) => {
+app.get('*', (req: Request, res: Response) => {
   res.statusCode = 200;
   res.end('You are looking at the twitter apis');
 });

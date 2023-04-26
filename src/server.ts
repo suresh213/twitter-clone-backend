@@ -1,4 +1,4 @@
-require('ts-node/register');
+// require('ts-node/register');
 /* eslint-disable no-console */
 import cluster, { Worker } from 'cluster';
 import os from 'os';
@@ -9,7 +9,7 @@ type WorkerMessage = {
   text: string;
 };
 
-const numCores: number = os.cpus().length;
+const numCores: number = os?.cpus()?.length;
 
 const workers: Worker[] = [];
 
@@ -17,7 +17,7 @@ const setupWorkerProcesses = (): void => {
   console.log(`Master cluster setting up ${numCores} workers`);
 
   for (let i = 0; i < numCores; i++) {
-    workers.push(cluster?.fork());
+    workers?.push(cluster?.fork());
 
     workers[i]?.on('message', function (message: WorkerMessage) {
       console.log(message);
@@ -28,7 +28,7 @@ const setupWorkerProcesses = (): void => {
 const setUpExpress = (): void => {
   const port: number = Number(process.env.APP_PORT) || 8002;
 
-  app.listen(port, () => {
+  app?.listen(port, () => {
     console.log(
       `Server running on port ${port} 🚀: time : ${dayjs()
         .tz('Asia/Kolkata')
@@ -38,7 +38,7 @@ const setUpExpress = (): void => {
 };
 
 const setupServer = (isClusterRequired: boolean): void => {
-  if (isClusterRequired && cluster.isMaster) {
+  if (isClusterRequired && cluster?.isMaster) {
     setupWorkerProcesses();
   } else {
     setUpExpress();
