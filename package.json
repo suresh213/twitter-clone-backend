@@ -4,7 +4,7 @@
   "description": "Backend server for the Twitter",
   "main": "cluster.js",
   "scripts": {
-    "dev": "ts-node ./src/server.ts",
+    "dev": "nodemon --exec ts-node ./src/server.ts",
     "makeMigrations": "ts-node .\\node_modules\\sequelize-auto-migrations\\bin\\makemigration.js",
     "migrate": "sequelize-cli db:migrate",
     "pretty": "prettier --write .",
