@@ -69,13 +69,12 @@
                     "seqType": "Sequelize.STRING"
                 },
                 "password": {
-                    "allowNull": false,
                     "field": "password",
                     "seqType": "Sequelize.STRING"
                 },
-                "token": {
-                    "field": "token",
-                    "seqType": "Sequelize.TEXT"
+                "provider": {
+                    "field": "provider",
+                    "seqType": "Sequelize.STRING"
                 },
                 "createdAt": {
                     "allowNull": false,
@@ -91,5 +90,5 @@
             "indexes": []
         }
     },
-    "revision": 2
+    "revision": 4
 }

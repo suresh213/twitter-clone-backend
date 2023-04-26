@@ -1,5 +1,44 @@
 {
     "tables": {
+        "Tweets": {
+            "tableName": "Tweets",
+            "schema": {
+                "id": {
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "authorId": {
+                    "allowNull": false,
+                    "field": "authorId",
+                    "name": "authorId",
+                    "references": {
+                        "model": "Users",
+                        "key": "id"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "content": {
+                    "allowNull": false,
+                    "field": "content",
+                    "seqType": "Sequelize.TEXT"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        },
         "Users": {
             "tableName": "Users",
             "schema": {
@@ -34,9 +73,9 @@
                     "field": "password",
                     "seqType": "Sequelize.STRING"
                 },
-                "token": {
-                    "field": "token",
-                    "seqType": "Sequelize.TEXT"
+                "provider": {
+                    "field": "provider",
+                    "seqType": "Sequelize.STRING"
                 },
                 "createdAt": {
                     "allowNull": false,
@@ -52,5 +91,5 @@
             "indexes": []
         }
     },
-    "revision": 1
+    "revision": 3
 }
