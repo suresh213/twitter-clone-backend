@@ -3,9 +3,6 @@ import { TweetInstance } from '../types';
 
 module.exports = (sequelize: any, DataTypes: any) => {
   class Tweet extends Model<TweetInstance> {
-    public authorId!: string;
-    public content?: string;
-
     public static associate() {
       // define association here
     }
@@ -19,6 +16,11 @@ module.exports = (sequelize: any, DataTypes: any) => {
 
   Tweet.init(
     {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+      },
       authorId: {
         type: DataTypes.INTEGER,
         allowNull: false,
